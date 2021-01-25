@@ -73,13 +73,14 @@ ul{
   top:0;
   left:0;
   width:100%;
-  background-color:#BAD3FFf99;
+  background-color:#5d99ff;
   text-align:center;
   display:block;
+  border-bottom:2px solid #6699ff;
 }
 
 .flash h2{
-  color:#BAD3FF;
+  color:#fff;
   padding:20px 0;
 }
 /* -----flash_message----- */

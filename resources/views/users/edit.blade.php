@@ -13,7 +13,7 @@
 </div>
 <form method="post" action="{{url('/users', $user->id)}}" enctype="multipart/form-data">
   @csrf
-  @method('PATCH')
+  @method('PUT')
   <table class="edit-users-table">
     <tbody>
       <tr>

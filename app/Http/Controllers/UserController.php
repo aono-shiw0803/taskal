@@ -75,7 +75,7 @@ class UserController extends Controller
     }
     $user->save();
     session()->flash('flash_message', '個人情報を更新しました！');
-    return redirect('/users')->with('filename', basename($path));
+    // return redirect('/users')->with('filename', basename($path));
     return redirect('/users');
   }
 
