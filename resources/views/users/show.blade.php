@@ -46,9 +46,9 @@
         @endif
         <td class="matter">{{$post->matter}}</td>
         @if($post->important == 1)
-          <td class="task" style="background-color:#{{\App\Task::where('title', $post->task)->first()->bg}}">{{$post->task}}&nbsp;<i id="important-mark" class="fas fa-exclamation-triangle"></i></td>
+          <td class="task">{{$post->name}}&nbsp;<i id="important-mark" class="fas fa-exclamation-triangle"></i></td>
         @else
-          <td class="task" style="background-color:#{{\App\Task::where('title', $post->task)->first()->bg}}">{{$post->task}}</td>
+          <td class="task">{{$post->name}}</td>
         @endif
         <td class="staff">
           <p>

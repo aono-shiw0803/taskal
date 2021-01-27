@@ -18,7 +18,7 @@
     <tr>
       <th>案件名</th>
       <th>登録日時</th>
-      <th>表示順</th>
+      <th>登録者</th>
       <th>編集</th>
       <th>削除</th>
     </tr>
@@ -26,7 +26,7 @@
     <tr>
       <td><p class="matter"><a href="{{url('matters/' . $matter->id)}}" class="link">{{$matter->name}}</a></p></td>
       <td>{{$matter->created_at}}</td>
-      <td>{{$matter->rank}}</td>
+      <td>{{$matter->user->name}}</td>
       <td id="click">
         <a href="{{action('MatterController@edit', $matter)}}" id="edit">編集</a>
       </td>

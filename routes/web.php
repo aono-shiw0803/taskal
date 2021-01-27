@@ -22,43 +22,57 @@ Route::get('/', function(){
 });
 
 // User
-Route::get('/users', 'UserController@index')->name('users.index')->middleware('auth');
-Route::get('/users/{user}', 'UserController@show')->name('users.show')->middleware('auth');
-Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit')->middleware('auth');
-Route::put('/users/{user}', 'UserController@update')->name('users.update')->middleware('auth');
-Route::post('/users/delete/{id}', 'UserController@delete')->name('users.delete')->middleware('auth');
+Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'auth'], function(){
+  Route::get('/', 'UserController@index')->name('index');
+  Route::get('/{user}', 'UserController@show')->name('show');
+  Route::get('/{user}/edit', 'UserController@edit')->name('edit');
+  Route::put('/{user}', 'UserController@update')->name('update');
+  Route::post('/delete/{id}', 'UserController@delete')->name('delete');
+});
 
 // Post
-Route::get('/posts/csv', 'PostController@csv')->middleware('auth');
-Route::post('/posts/csv', 'PostController@upload_regist')->middleware('auth');
-Route::get('/posts/export_post', 'PostController@export_post')->name('export.post')->middleware('auth');
-Route::get('/posts', 'PostController@index')->name('posts.index')->middleware('auth');
-Route::get('/posts/create', 'PostController@create')->name('posts.create')->middleware('auth');
-Route::post('/posts', 'PostController@store')->name('posts.store')->middleware('auth');
-Route::get('/posts/{post}', 'PostController@show')->name('posts.show')->middleware('auth');
-Route::get('/posts/{post}/edit', 'PostController@edit')->name('posts.edit')->middleware('auth');
-Route::put('/posts/{post}', 'PostController@update')->name('posts.update')->middleware('auth');
-Route::post('/posts/delete/{id}', 'PostController@delete')->name('posts.delete')->middleware('auth');
+Route::group(['prefix' => 'posts', 'as' => 'posts.', 'middleware' => 'auth'], function(){
+  Route::get('/', 'PostController@index')->name('index');
+  Route::get('/create', 'PostController@create')->name('create');
+  Route::post('/', 'PostController@store')->name('store');
+  Route::get('/{post}', 'PostController@show')->name('show');
+  Route::get('/{post}/edit', 'PostController@edit')->name('edit');
+  Route::put('/{post}', 'PostController@update')->name('update');
+  Route::post('/delete/{id}', 'PostController@delete')->name('delete');
+});
+
+// csv
+Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function(){
+  Route::get('/csv', 'PostController@csv');
+  Route::post('/csv', 'PostController@upload_regist');
+  Route::get('/export_post', 'PostController@export_post')->name('export.post');
+});
 
 // -----conclusion-----
-Route::get('/conclusions', 'ConclusionController@index')->middleware('auth');
-Route::get('/conclusions/export_conclution', 'ConclusionController@export_conclution')->name('export.conclution')->middleware('auth');
-Route::post('delete_post', 'ConclusionController@delete_post')->middleware('auth');
+Route::group(['middleware' => 'auth'], function(){
+  Route::get('/conclusions', 'ConclusionController@index');
+  Route::get('/conclusions/export_conclution', 'ConclusionController@export_conclution')->name('export.conclution');
+  Route::post('delete_post', 'ConclusionController@delete_post');
+});
 
 // Matter
-Route::get('/matters', 'MatterController@index')->name('matters.index')->middleware('auth');
-Route::get('/matters/create', 'MatterController@create')->name('matters.create')->middleware('auth');
-Route::post('/matters', 'MatterController@store')->name('matters.store')->middleware('auth');
-Route::get('/matters/{matter}', 'MatterController@show')->name('matters.show')->middleware('auth');
-Route::get('/matters/{matter}/edit', 'MatterController@edit')->name('matters.edit')->middleware('auth');
-Route::put('/matters/{matter}', 'MatterController@update')->name('matters.update')->middleware('auth');
-Route::post('/matters/delete/{id}', 'MatterController@delete')->name('matters.delete')->middleware('auth');
+Route::group(['prefix' => 'matters', 'as' => 'matters.', 'middleware' => 'auth'], function(){
+  Route::get('/', 'MatterController@index')->name('index');
+  Route::get('/create', 'MatterController@create')->name('create');
+  Route::post('/', 'MatterController@store')->name('store');
+  Route::get('/{matter}', 'MatterController@show')->name('show');
+  Route::get('/{matter}/edit', 'MatterController@edit')->name('edit');
+  Route::put('/{matter}', 'MatterController@update')->name('update');
+  Route::post('/delete/{id}', 'MatterController@delete')->name('delete');
+});
 
 // File
-Route::get('/files', 'FileController@index')->name('files.index')->middleware('auth');
-Route::get('/files/create', 'FileController@create')->name('files.create')->middleware('auth');
-Route::post('/files', 'FileController@store')->name('files.store')->middleware('auth');
-Route::post('/files/delete/{id}', 'FileController@delete')->name('files.delete')->middleware('auth');
+Route::group(['prefix' => 'files', 'as' => 'files.', 'middleware' => 'auth'], function(){
+  Route::get('/', 'FileController@index')->name('index');
+  Route::get('/create', 'FileController@create')->name('create');
+  Route::post('/', 'FileController@store')->name('store');
+  Route::post('/delete/{id}', 'FileController@delete')->name('delete');
+});
 
 // Auth::routes();
 // ↑下記のルーティングを使用しない場合はコメントアウトを解除する。

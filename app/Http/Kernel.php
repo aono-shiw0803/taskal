@@ -27,6 +27,7 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+     // 全てのページで有効にする
     protected $middlewareGroups = [
         'web' => [
             \App\Http\Middleware\EncryptCookies::class,
@@ -51,6 +52,7 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+     // 特定のページのみ有効にする
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

@@ -16,6 +16,7 @@
   <table class="create-matters-table">
     <tbody>
       <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+      <input type="hidden" name="rank" value="99">
       <tr>
         <th id="middle">案件名<span class="must">※（20文字以内）</span></th>
         <td>

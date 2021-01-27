@@ -245,7 +245,6 @@ select{
   color:#5d99ff;
 }
 .link:hover{
-  transition:0.4s;
   opacity:0.5;
 }
 
@@ -362,7 +361,7 @@ select{
 .edit-users-btn-area input,
 .edit-matters-btn-area input,
 .edit-tasks-btn-area input{
-  padding:7px 40px;
+  padding:2px 40px;
 }
 
 .posts-must,
@@ -513,15 +512,17 @@ select{
 .show-posts-table th{
   border-bottom:1px solid #4b4944;
   width:120px;
-  color:#BAD3FF;
-  background-color:#BAD3FF;
+  color:#5d99ff;
+  background-color:#eee;
 }
 .index-matters-table th:nth-of-type(2),
 .index-files-table th:nth-of-type(1),
 .index-files-table th:nth-of-type(3){
-  width:170px;
+  width:160px;
 }
-.index-matters-table th:nth-of-type(3),
+.index-matters-table th:nth-of-type(3){
+  width:100px;
+}
 .index-matters-table th:nth-of-type(4),
 .index-matters-table th:nth-of-type(5),
 .index-files-table th:nth-of-type(5){
@@ -537,6 +538,12 @@ select{
 .edit-matters-table input,
 .edit-tasks-table input{
   width:97%;
+}
+.edit-matters-table tr:nth-of-type(2) td{
+  text-align:left;
+}
+.edit-matters-table tr:nth-of-type(2) td input{
+  width:10%;
 }
 .create-posts-table input,
 .create-posts-table select,
@@ -714,11 +721,15 @@ select{
 
 /* 枠無Ver----- */
 #edit{
-  color:#BAD3FF;
+  color:#5d99ff;
+}
+#edit:hover{
+  opacity:0.5;
+  text-decoration:underline;
 }
 
 #download{
-  color:#BAD3FF;
+  color:#5d99ff;
   text-decoration:underline;
 }
 
@@ -726,18 +737,22 @@ select{
   opacity:0.5;
 }
 
+#imperfect{
+  background-color:#FFD5EC;
+}
+
 /* 枠有Ver----- */
 .edit{
   border-radius:5px;
-  border:1px solid #BAD3FF;
-  background-color:#BAD3FF;
-  color:#BAD3FF;
+  border:1px solid #5d99ff;
+  background-color:#5d99ff;
+  color:#fff;
 }
 
 .edit:hover{
   transition:0.4s;
-  background-color:#BAD3FF;
-  color:#BAD3FF;
+  background-color:#fff;
+  color:#5d99ff;
 }
 
 /* 枠無Ver----- */
@@ -752,6 +767,7 @@ select{
 
 #delete:hover{
   text-decoration:underline;
+  opacity:0.5;
 }
 
 /* 枠有Ver----- */
@@ -760,15 +776,14 @@ select{
   border-radius:5px;
   outline:none;
   background-color:#f00;
-  color:#BAD3FF;
+  color:#fff;
   font-size:16px;
-  padding:5px 51px;
   cursor:pointer;
 }
 
 .delete:hover{
   transition:0.4s;
-  background-color:#BAD3FF;
+  background-color:#fff;
   color:#f00;
 }
 
@@ -1359,15 +1374,10 @@ footer p{
   font-weight:bold;
   color:#fff;
   text-decoration:underline;
-  opacity:0.8;
 }
 .breadcrumb li a:hover{
-  transition:0.4s;
-  opacity:0.4;
+  opacity:0.5;
 }
-/* .breadcrumb li::after{
-  content:">";
-} */
 /* -----breadcrumbs----- */
 
 
@@ -1517,9 +1527,6 @@ footer p{
   border-bottom:1px solid #4b4944;
   background-color:#BAD3FF;
 }
-/* .schedule-table .month-tr{
-  border-bottom:1px solid #4b4944;
-} */
 .schedule-table .month-tr th{
   border-bottom:1px solid #4b4944;
   height:30px;
@@ -1537,7 +1544,7 @@ footer p{
 .schedule-table th{
   border-right:1px solid #4b4944;
   padding:0 5px;
-  font-size:14px;
+  /* font-size:14px; */
   color:#4b4944;
   width:100vh;
   /* height:30px; */
