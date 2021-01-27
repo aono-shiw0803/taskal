@@ -80,14 +80,14 @@ class PostController extends Controller
       return redirect('posts/' . $post->id);
     }
 
-    public function edit(){
+    public function edit(Post $post, User $user){
       $matters = Matter::orderBy('rank', 'asc')->get();
       $users = User::orderBy('rank', 'asc')->get();
       $today = Carbon::today()->format('Y年m月d日');
       return view('posts.edit', ['today'=>$today, 'post'=>$post, 'matters'=>$matters, 'users'=>$users, 'user'=>$user]);
     }
 
-    public function update(PostRequest $request){
+    public function update(PostRequest $request, Post $post){
       $post->name = $request->name;
       $post->matter = $request->matter;
       $post->staff = $request->staff;

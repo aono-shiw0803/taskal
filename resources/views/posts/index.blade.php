@@ -30,7 +30,6 @@
         <th>案件名</th>
         <th>タスク</th>
         <th>作業者</th>
-        <th>工数</th>
       </tr>
       @forelse($posts as $post)
       @if($post->status == 0 && $start_date <= $post->end_date && $end_date >= $post->end_date)
@@ -45,9 +44,9 @@
         @endif
         <td class="matter">{{$post->matter}}</td>
         @if($post->important == 1)
-          <td class="task" style="background-color:#{{\App\Task::where('title', $post->task)->first()->bg}}">{{$post->task}}&nbsp;<i id="important-mark" class="fas fa-exclamation-triangle"></i></td>
+          <td class="task">{{$post->name}}&nbsp;<i id="important-mark" class="fas fa-exclamation-triangle"></i></td>
         @else
-          <td class="task" style="background-color:#{{\App\Task::where('title', $post->task)->first()->bg}}">{{$post->task}}</td>
+          <td class="task">{{$post->name}}</td>
         @endif
         <td class="staff">
           <p>
@@ -58,7 +57,6 @@
             @endif
           </p>
         </td>
-        <td>{{$post->hour}}</td>
       </tr>
       @endif
       @empty

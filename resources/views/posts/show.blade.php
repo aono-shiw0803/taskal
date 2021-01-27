@@ -25,12 +25,18 @@
     <tr>
       <th>案件名</th>
       <td>{{$post->matter}}</td>
+      <th>タスク名</th>
+      <td>{{$post->name}}</td>
     </tr>
     <tr>
-      <th>タスク名</th>
-      <td>{{$post->task}}</td>
-      <th>作業者</th>
-      <td>{{$post->staff}}</td>
+      <th>担当者</th>
+      <td>{{$post->staff}}（タスク作成者：{{$post->user->name}}）</td>
+      <th>タスク状況</th>
+      @if($post->status === 0)
+        <td id="imperfect">未完了</td>
+      @else
+        <td>完了</td>
+      @endif
     </tr>
     <tr>
       <th>開始日</th>

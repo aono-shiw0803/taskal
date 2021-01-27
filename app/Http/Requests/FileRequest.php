@@ -33,9 +33,9 @@ class FileRequest extends FormRequest
 
     public function messages(){
       return [
-        'file.required' => '必須項目です。',
-        'matter.required' => '必須項目です。',
-        'type.required' => '必須項目です。',
+        'file.required' => 'ファイルを選択してください。',
+        'matter.required' => '選択してください。',
+        'type.required' => '選択してください。',
         'user_id.required' => '必須項目です。',
       ];
     }

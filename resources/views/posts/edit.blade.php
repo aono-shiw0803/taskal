@@ -13,7 +13,7 @@
 </div>
 <form method="post" action="{{url('/posts', $post->id)}}">
   @csrf
-  @method('PATCH')
+  @method('PUT')
   <table class="edit-posts-table">
     <tbody>
       <tr>
@@ -33,13 +33,9 @@
       <tr>
         <th>タスク<span class="must">※</span></th>
         <td>
-          <select name="task" value="{{old('task', $post->task)}}">
-            @foreach($tasks as $task)
-            <option value="{{$task->title}}" @if(old('task', $post->task) == $task->title) selected @endif>{{$task->title}}</option>
-            @endforeach
-          </select>
-          @if($errors->has('task'))
-          <span id="error">{{$errors->first('task')}}</span>
+          <input type="text" name="name" value="{{old('name', $post->name)}}">
+          @if($errors->has('name'))
+          <span id="error">{{$errors->first('name')}}</span>
           @endif
         </td>
       </tr>

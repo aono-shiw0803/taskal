@@ -66,7 +66,7 @@ class MatterController extends Controller
     $matter->name = $request->name;
     $matter->content = $request->content;
     $matter->rank = $request->rank;
-    $matter->user_id = $request->$user_id;
+    $matter->user_id = $request->user_id;
     $matter->save();
     session()->flash('flash_message', '案件を追加しました！');
     return redirect('/matters');
@@ -83,13 +83,13 @@ class MatterController extends Controller
     $matter->name = $request->name;
     $matter->content = $request->content;
     $matter->rank = $request->rank;
-    $matter->user_id = $request->$user_id;
+    $matter->user_id = $request->user_id;
     $matter->save();
     session()->flash('flash_message', '案件を更新しました！');
     return redirect('/matters');
   }
 
-  public function delete($matter){
+  public function delete(Request $request){
     Matter::find($request->id)->delete();
     session()->flash('flash_message', '削除が完了しました！');
     return redirect('/matters');
