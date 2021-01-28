@@ -31,7 +31,7 @@
         <th>タスク</th>
         <th>作業者</th>
       </tr>
-      @forelse($posts as $post)
+      @foreach($posts as $post)
       @if($post->status == 0 && $start_date <= $post->end_date && $end_date >= $post->end_date)
       <tr>
         @if(strtotime($today2) > strtotime($post->end_date))
@@ -59,11 +59,7 @@
         </td>
       </tr>
       @endif
-      @empty
-      <!-- <tr>
-        <td colspan="5" id="null">登録されていません</td>
-      </tr> -->
-      @endforelse
+      @endforeach
     </tbody>
   </table>
 

@@ -76,7 +76,7 @@
       <nav>
         <ul>
           <li><i id="close" class="fas fa-times"></i></li>
-          @if(Auth::user()->id == 1 || Auth::user()->id == 4)
+          @if(Auth::user()->id == 1)
           <li id="nav-user">
             あなたは管理者です<span class="caret"></span>
           </li>

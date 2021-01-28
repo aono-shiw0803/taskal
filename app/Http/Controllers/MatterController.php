@@ -13,15 +13,11 @@ use App\Http\Requests\MatterRequest;
 class MatterController extends Controller
 {
   public function index(User $user){
-    $matters = Matter::orderBy('rank', 'asc')->get();
-    $users = User::orderBy('rank', 'asc')->get();
     $today = Carbon::today()->format('Y年m月d日');
-    return view('matters.index', ['today'=>$today, 'matters'=>$matters, 'users'=>$users, 'user'=>$user]);
+    return view('matters.index', ['today'=>$today, 'user'=>$user]);
   }
 
   public function show(Request $request, Matter $matter, User $user){
-    $matters = Matter::orderBy('rank', 'asc')->get();
-    $users = User::orderBy('rank', 'asc')->get();
     $matter = Matter::find($matter->id);
     $posts = Post::where('matter', $matter->name)->orderBy('start_date', 'asc')->paginate(10);
     $start_date = $request->start_date ?? Carbon::today()->format('Y-m-d');
@@ -51,40 +47,27 @@ class MatterController extends Controller
       $dayCount = $end->diffInDays($start) + 1;
       return compact('start', 'end', 'dayCount');
     });
-    return view('matters.show', ['array'=>$array, 'weeks'=>$weeks, 'today'=>$today, 'today2'=>$today2, 'holidays'=>$holidays, 'matter'=>$matter, 'matters'=>$matters, 'start_date'=>$start_date, 'end_date'=>$end_date, 'users'=>$users, 'user'=>$user, 'posts'=>$posts]);
+    return view('matters.show', ['array'=>$array, 'weeks'=>$weeks, 'today'=>$today, 'today2'=>$today2, 'holidays'=>$holidays, 'matter'=>$matter, 'start_date'=>$start_date, 'end_date'=>$end_date, 'user'=>$user, 'posts'=>$posts]);
   }
 
   public function create(Matter $matter, User $user){
-    $matters = Matter::orderBy('rank', 'asc')->get();
-    $users = User::orderBy('rank', 'asc')->get();
     $today = Carbon::today()->format('Y年m月d日');
-    return view('matters.create', ['today'=>$today, 'matters'=>$matters, 'users'=>$users]);
+    return view('matters.create', ['today'=>$today]);
   }
 
   public function store(MatterRequest $request){
-    $matter = new Matter();
-    $matter->name = $request->name;
-    $matter->content = $request->content;
-    $matter->rank = $request->rank;
-    $matter->user_id = $request->user_id;
-    $matter->save();
+    Matter::create($request->validated());
     session()->flash('flash_message', '案件を追加しました！');
     return redirect('/matters');
   }
 
   public function edit(Matter $matter, User $user){
-    $matters = Matter::orderBy('rank', 'asc')->get();
-    $users = User::orderBy('rank', 'asc')->get();
     $today = Carbon::today()->format('Y年m月d日');
-    return view('matters.edit', ['today'=>$today, 'matter'=>$matter, 'matters'=>$matters, 'users'=>$users, 'user'=>$user]);
+    return view('matters.edit', ['today'=>$today, 'matter'=>$matter, 'user'=>$user]);
   }
 
   public function update(MatterRequest $request, Matter $matter){
-    $matter->name = $request->name;
-    $matter->content = $request->content;
-    $matter->rank = $request->rank;
-    $matter->user_id = $request->user_id;
-    $matter->save();
+    $matter->create($request->validated());
     session()->flash('flash_message', '案件を更新しました！');
     return redirect('/matters');
   }
