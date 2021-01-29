@@ -13,15 +13,11 @@ use App\Http\Requests\UserRequest;
 class UserController extends Controller
 {
   public function index(User $user){
-    $users = User::orderBy('rank', 'asc')->get();
-    $matters = Matter::orderBy('rank', 'asc')->get();
     $today = Carbon::today()->format('Y年m月d日');
-    return view('users.index', ['today'=>$today, 'users'=>$users, 'matters'=>$matters, 'user'=>$user]);
+    return view('users.index', ['today'=>$today, 'user'=>$user]);
   }
 
   public function show(Request $request, User $user){
-    $matters = Matter::orderBy('rank', 'asc')->get();
-    $users = User::orderBy('rank', 'asc')->get();
     $user = User::find($user->id);
     $posts = Post::where('staff', $user->name)->orderBy('start_date', 'asc')->paginate(10);
     $start_date = $request->start_date ?? Carbon::today()->format('Y-m-d');
@@ -51,14 +47,12 @@ class UserController extends Controller
       $dayCount = $end->diffInDays($start) + 1;
       return compact('start', 'end', 'dayCount');
     });
-    return view('users.show', ['array'=>$array, 'weeks'=>$weeks, 'today'=>$today, 'today2'=>$today2, 'holidays'=>$holidays, 'user'=>$user, 'users'=>$users, 'start_date'=>$start_date, 'end_date'=>$end_date, 'matters'=>$matters, 'posts'=>$posts]);
+    return view('users.show', ['array'=>$array, 'weeks'=>$weeks, 'today'=>$today, 'today2'=>$today2, 'holidays'=>$holidays, 'user'=>$user, 'start_date'=>$start_date, 'end_date'=>$end_date, 'posts'=>$posts]);
   }
 
   public function edit(User $user){
-    $matters = Matter::orderBy('rank', 'asc')->get();
-    $users = User::orderBy('rank', 'asc')->get();
     $today = Carbon::today()->format('Y年m月d日');
-    return view('users.edit', ['today'=>$today, 'user'=>$user, 'users'=>$users, 'matters'=>$matters]);
+    return view('users.edit', ['today'=>$today, 'user'=>$user]);
   }
 
   public function update(UserRequest $request, User $user){
