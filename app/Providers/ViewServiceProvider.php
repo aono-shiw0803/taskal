@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Http\View\Composers\UsersComposer;
 use App\Http\View\Composers\PostsComposer;
 use App\Http\View\Composers\MattersComposer;
+use App\Http\View\Composers\DateComposer;
 use Illuminate\Support\Facades\View;
 
 class ViewServiceProvider extends ServiceProvider
@@ -35,6 +36,9 @@ class ViewServiceProvider extends ServiceProvider
         );
         View::composer(
           '*', MattersComposer::class
+        );
+        View::composer(
+          '*', DateComposer::class
         );
     }
 }

@@ -13,8 +13,7 @@ use App\Http\Requests\MatterRequest;
 class MatterController extends Controller
 {
   public function index(User $user){
-    $today = Carbon::today()->format('Y年m月d日');
-    return view('matters.index', ['today'=>$today, 'user'=>$user]);
+    return view('matters.index', ['user'=>$user]);
   }
 
   public function show(Request $request, Matter $matter, User $user){
@@ -22,7 +21,6 @@ class MatterController extends Controller
     $posts = Post::where('matter', $matter->name)->orderBy('start_date', 'asc')->paginate(10);
     $start_date = $request->start_date ?? Carbon::today()->format('Y-m-d');
     $end_date = $request->end_date ?? Carbon::today()->addDays(30)->format('Y-m-d');
-    $today = Carbon::today()->format('Y年m月d日');
     $today2 = Carbon::today()->format('Y-m-d');
     $date = $date ?? Carbon::today();
     $date = is_string($date) ? Carbon::parse($date) : $date;
@@ -47,12 +45,11 @@ class MatterController extends Controller
       $dayCount = $end->diffInDays($start) + 1;
       return compact('start', 'end', 'dayCount');
     });
-    return view('matters.show', ['array'=>$array, 'weeks'=>$weeks, 'today'=>$today, 'today2'=>$today2, 'holidays'=>$holidays, 'matter'=>$matter, 'start_date'=>$start_date, 'end_date'=>$end_date, 'user'=>$user, 'posts'=>$posts]);
+    return view('matters.show', ['array'=>$array, 'weeks'=>$weeks, 'today2'=>$today2, 'holidays'=>$holidays, 'matter'=>$matter, 'start_date'=>$start_date, 'end_date'=>$end_date, 'user'=>$user, 'posts'=>$posts]);
   }
 
   public function create(Matter $matter, User $user){
-    $today = Carbon::today()->format('Y年m月d日');
-    return view('matters.create', ['today'=>$today]);
+    return view('matters.create');
   }
 
   public function store(MatterRequest $request){
@@ -62,8 +59,7 @@ class MatterController extends Controller
   }
 
   public function edit(Matter $matter, User $user){
-    $today = Carbon::today()->format('Y年m月d日');
-    return view('matters.edit', ['today'=>$today, 'matter'=>$matter, 'user'=>$user]);
+    return view('matters.edit', ['matter'=>$matter, 'user'=>$user]);
   }
 
   public function update(MatterRequest $request, Matter $matter){

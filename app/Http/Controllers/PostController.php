@@ -15,7 +15,6 @@ class PostController extends Controller
     public function index(Request $request, User $user){
       $start_date = $request->start_date ?? Carbon::today()->format('Y-m-d');
       $end_date = $request->end_date ?? Carbon::today()->addDays(30)->format('Y-m-d');
-      $today = Carbon::today()->format('Y年m月d日');
       $today2 = Carbon::today()->format('Y-m-d');
       $date = $date ?? Carbon::today();
       $date = is_string($date) ? Carbon::parse($date) : $date;
@@ -44,51 +43,29 @@ class PostController extends Controller
         $dayCount = $end->diffInDays($start) + 1;
         return compact('start', 'end', 'dayCount');
       });
-      return view('posts.index', ['array'=>$array, 'weeks'=>$weeks, 'today'=>$today, 'today2'=>$today2, 'holidays'=>$holidays, 'start_date'=>$start_date, 'end_date'=>$end_date, 'user'=>$user]);
+      return view('posts.index', ['array'=>$array, 'weeks'=>$weeks, 'today2'=>$today2, 'holidays'=>$holidays, 'start_date'=>$start_date, 'end_date'=>$end_date, 'user'=>$user]);
     }
 
     public function show(Post $post, User $user){
-      $today = Carbon::today()->format('Y年m月d日');
-      return view('posts.show', ['today'=>$today, 'post'=>$post, 'user'=>$user]);
+      return view('posts.show', ['post'=>$post, 'user'=>$user]);
     }
 
     public function create(){
-      $today = Carbon::today()->format('Y年m月d日');
-      return view('posts.create', ['today'=>$today]);
+      return view('posts.create');
     }
 
     public function store(PostRequest $request){
-      $post = new Post();
-      $post->name = $request->name;
-      $post->matter = $request->matter;
-      $post->staff = $request->staff;
-      $post->start_date = $request->start_date;
-      $post->end_date = $request->end_date;
-      $post->content = $request->content;
-      $post->status = $request->status;
-      $post->important = $request->important;
-      $post->user_id = $request->user_id;
-      $post->save();
+      Post::create($request->validated());
       session()->flash('flash_message', '登録が完了しました！');
       return redirect('posts/' . $post->id);
     }
 
     public function edit(Post $post, User $user){
-      $today = Carbon::today()->format('Y年m月d日');
-      return view('posts.edit', ['today'=>$today, 'post'=>$post, 'user'=>$user]);
+      return view('posts.edit', ['post'=>$post, 'user'=>$user]);
     }
 
     public function update(PostRequest $request, Post $post){
-      $post->name = $request->name;
-      $post->matter = $request->matter;
-      $post->staff = $request->staff;
-      $post->start_date = $request->start_date;
-      $post->end_date = $request->end_date;
-      $post->content = $request->content;
-      $post->status = $request->status;
-      $post->important = $request->important;
-      $post->user_id = $request->user_id;
-      $post->save();
+      $post->fill($request->validated())->save();
       session()->flash('flash_message', '更新が完了しました！');
       return redirect('posts/' . $post->id);
     }

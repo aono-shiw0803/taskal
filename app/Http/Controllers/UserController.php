@@ -13,8 +13,7 @@ use App\Http\Requests\UserRequest;
 class UserController extends Controller
 {
   public function index(User $user){
-    $today = Carbon::today()->format('Y年m月d日');
-    return view('users.index', ['today'=>$today, 'user'=>$user]);
+    return view('users.index', ['user'=>$user]);
   }
 
   public function show(Request $request, User $user){
@@ -22,7 +21,6 @@ class UserController extends Controller
     $posts = Post::where('staff', $user->name)->orderBy('start_date', 'asc')->paginate(10);
     $start_date = $request->start_date ?? Carbon::today()->format('Y-m-d');
     $end_date = $request->end_date ?? Carbon::today()->addDays(30)->format('Y-m-d');
-    $today = Carbon::today()->format('Y年m月d日');
     $today2 = Carbon::today()->format('Y-m-d');
     $date = $date ?? Carbon::today();
     $date = is_string($date) ? Carbon::parse($date) : $date;
@@ -47,12 +45,11 @@ class UserController extends Controller
       $dayCount = $end->diffInDays($start) + 1;
       return compact('start', 'end', 'dayCount');
     });
-    return view('users.show', ['array'=>$array, 'weeks'=>$weeks, 'today'=>$today, 'today2'=>$today2, 'holidays'=>$holidays, 'user'=>$user, 'start_date'=>$start_date, 'end_date'=>$end_date, 'posts'=>$posts]);
+    return view('users.show', ['array'=>$array, 'weeks'=>$weeks, 'today2'=>$today2, 'holidays'=>$holidays, 'user'=>$user, 'start_date'=>$start_date, 'end_date'=>$end_date, 'posts'=>$posts]);
   }
 
   public function edit(User $user){
-    $today = Carbon::today()->format('Y年m月d日');
-    return view('users.edit', ['today'=>$today, 'user'=>$user]);
+    return view('users.edit', ['user'=>$user]);
   }
 
   public function update(UserRequest $request, User $user){
